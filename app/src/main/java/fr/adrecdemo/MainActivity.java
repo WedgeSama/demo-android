@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
                 int num = (int) (Math.random() * sizeDice + 1);
 
+                Log.d("dice", "Number: "+num);
+
                 Snackbar.make(view, "Random num: " + num, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
