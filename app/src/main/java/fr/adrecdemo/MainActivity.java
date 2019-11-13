@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 RadioGroup diceGroup = findViewById(R.id.diceGroup);
+                TextView textDisplay = findViewById(R.id.textDisplay);
 
                 int selectedId = diceGroup.getCheckedRadioButtonId();
                 int sizeDice = 51;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
                 int num = (int) (Math.random() * sizeDice + 1);
 
+                textDisplay.setText("Last dice run: " + num);
                 Log.d("dice", "Number: "+num);
 
                 Snackbar.make(view, "Random num: " + num, Snackbar.LENGTH_LONG)
