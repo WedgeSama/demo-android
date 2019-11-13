@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -17,8 +18,10 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private int lastDice = 0;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -45,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
                 int num = (int) (Math.random() * sizeDice + 1);
 
+                MainActivity.this.lastDice = num;
+
                 textDisplay.setText("Last dice run: " + num);
+
                 Log.d("dice", "Number: "+num);
 
                 Snackbar.make(view, "Random num: " + num, Snackbar.LENGTH_LONG)
@@ -74,5 +80,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        this.lastDice = savedInstanceState.getInt("lastDice", 0);
+        TextView textDisplay = findViewById(R.id.textDisplay);
+
+        textDisplay.setText("Last dice: " + this.lastDice);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("lastDice", this.lastDice);
     }
 }
